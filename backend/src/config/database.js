@@ -18,17 +18,20 @@ function parseDatabaseUrl(databaseUrl) {
     };
   }
 
-  // For production, use connection string directly with IPv4 forcing
+  // Modify connection string to force IPv4
+  let connectionString = databaseUrl;
+  if (!connectionString.includes('?')) {
+    connectionString += '?';
+  } else {
+    connectionString += '&';
+  }
+  connectionString += 'family=4&sslmode=require';
+
   return {
-    connectionString: databaseUrl,
+    connectionString: connectionString,
     ssl: { rejectUnauthorized: false },
-    // Force IPv4 resolution
-    host: new URL(databaseUrl).hostname,
-    family: 4,
   };
 }
-
-const dbConfig = parseDatabaseUrl(process.env.DATABASE_URL);
 
 const dbConfig = parseDatabaseUrl(process.env.DATABASE_URL);
 
@@ -37,8 +40,6 @@ const pool = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
-  // Additional IPv4 forcing options
-  host: dbConfig.host, // Explicitly set host
   keepAlive: true,
   keepAliveInitialDelayMillis: 0,
 });
