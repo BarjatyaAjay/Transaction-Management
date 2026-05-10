@@ -63,7 +63,7 @@ services:
     ports:
       - "3000:80"
     environment:
-      VITE_API_URL: http://localhost:8000/api
+      VITE_API_URL: https://transaction-management-jbxn.onrender.com/api
     depends_on:
       - backend
 

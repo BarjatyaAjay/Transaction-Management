@@ -159,7 +159,8 @@ cd ../frontend
 cp .env.example .env
 
 # Verify .env has correct API URL
-# VITE_API_URL=http://localhost:5000/api
+# For local development: VITE_API_URL=http://localhost:8000/api
+# For production: VITE_API_URL=https://transaction-management-jbxn.onrender.com/api
 
 # Install dependencies
 pnpm install

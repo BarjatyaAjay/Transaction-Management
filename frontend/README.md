@@ -133,7 +133,7 @@ Application will be available at `http://localhost:5173`
 ### Environment Variables
 
 ```bash
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=https://transaction-management-jbxn.onrender.com/api
 VITE_APP_NAME=Personal Finance Tracker
 VITE_APP_VERSION=1.0.0
 ```
