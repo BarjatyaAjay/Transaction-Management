@@ -38,6 +38,15 @@ app.get('/health', (req, res) => {
   });
 });
 
+// ===== Root Route =====
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Personal Finance Tracker API',
+    routes: ['/health', '/api/auth', '/api/transactions', '/api/analytics'],
+  });
+});
+
 // ===== API Routes =====
 app.use('/api/auth', authRoutes);
 app.use('/api/transactions', transactionRoutes);
