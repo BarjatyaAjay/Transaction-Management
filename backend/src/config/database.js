@@ -20,12 +20,16 @@ function parseDatabaseUrl(databaseUrl) {
 
   // Parse postgresql://user:password@host:port/database
   const url = new URL(databaseUrl);
+
   return {
     user: url.username,
     password: url.password,
     host: url.hostname,
     port: parseInt(url.port) || 5432,
     database: url.pathname.substring(1), // Remove leading slash
+    // Force IPv4 and SSL for Render compatibility
+    ssl: { rejectUnauthorized: false },
+    family: 4, // Force IPv4
   };
 }
 

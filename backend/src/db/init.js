@@ -31,6 +31,9 @@ function parseDatabaseUrl(databaseUrl) {
     host: url.hostname,
     port: parseInt(url.port) || 5432,
     database: url.pathname.substring(1), // Remove leading slash
+    // Force IPv4 and SSL for Render compatibility
+    ssl: { rejectUnauthorized: false },
+    family: 4, // Force IPv4
   };
 }
 

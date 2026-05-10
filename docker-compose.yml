@@ -37,7 +37,10 @@ services:
     environment:
       NODE_ENV: development
       PORT: 8000
+      # For local development with docker-compose postgres:
       DATABASE_URL: postgresql://postgres:password@postgres:5432/personal_finance_tracker
+      # For production with Supabase, uncomment this line:
+      # DATABASE_URL: postgresql://postgres:[YOUR-PASSWORD]@db.merjiupvuzivxyvcdjfs.supabase.co:5432/postgres
       REDIS_URL: redis://redis:6379
       JWT_SECRET: your_super_secret_jwt_key_change_this_in_production
       JWT_EXPIRY: 24h
