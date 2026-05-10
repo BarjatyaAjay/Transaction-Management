@@ -15,21 +15,17 @@ function parseDatabaseUrl(databaseUrl) {
       host: process.env.DB_HOST || 'localhost',
       port: parseInt(process.env.DB_PORT) || 5432,
       database: process.env.DB_NAME || 'personal_finance_tracker',
+      ssl: process.env.PGSSLMODE === 'require'
+        ? { rejectUnauthorized: false }
+        : false,
+      family: 4,
     };
   }
 
-  // Modify connection string to force IPv4
-  let connectionString = databaseUrl;
-  if (!connectionString.includes('?')) {
-    connectionString += '?';
-  } else {
-    connectionString += '&';
-  }
-  connectionString += 'family=4&sslmode=require';
-
   return {
-    connectionString: connectionString,
+    connectionString: databaseUrl.trim(),
     ssl: { rejectUnauthorized: false },
+    family: 4,
   };
 }
 

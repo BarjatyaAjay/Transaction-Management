@@ -20,15 +20,16 @@ function parseDatabaseUrl(databaseUrl) {
       host: process.env.DB_HOST || 'localhost',
       port: parseInt(process.env.DB_PORT) || 5432,
       database: process.env.DB_NAME || 'personal_finance_tracker',
+      ssl: process.env.PGSSLMODE === 'require'
+        ? { rejectUnauthorized: false }
+        : false,
+      family: 4,
     };
   }
 
-  // For production, use connection string directly with IPv4 forcing
   return {
-    connectionString: databaseUrl,
+    connectionString: databaseUrl.trim(),
     ssl: { rejectUnauthorized: false },
-    // Force IPv4 resolution
-    host: new URL(databaseUrl).hostname,
     family: 4,
   };
 }
@@ -59,6 +60,7 @@ async function initDatabase() {
     
   } catch (error) {
     console.error('❌ Database initialization failed:', error.message);
+    console.error(error);
     process.exit(1);
   } finally {
     await pool.end();
