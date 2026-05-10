@@ -18,20 +18,17 @@ function parseDatabaseUrl(databaseUrl) {
     };
   }
 
-  // Parse postgresql://user:password@host:port/database
-  const url = new URL(databaseUrl);
-
+  // For production, use connection string directly with IPv4 forcing
   return {
-    user: url.username,
-    password: url.password,
-    host: url.hostname,
-    port: parseInt(url.port) || 5432,
-    database: url.pathname.substring(1), // Remove leading slash
-    // Force IPv4 and SSL for Render compatibility
+    connectionString: databaseUrl,
     ssl: { rejectUnauthorized: false },
-    family: 4, // Force IPv4
+    // Force IPv4 resolution
+    host: new URL(databaseUrl).hostname,
+    family: 4,
   };
 }
+
+const dbConfig = parseDatabaseUrl(process.env.DATABASE_URL);
 
 const dbConfig = parseDatabaseUrl(process.env.DATABASE_URL);
 
@@ -40,6 +37,10 @@ const pool = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  // Additional IPv4 forcing options
+  host: dbConfig.host, // Explicitly set host
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 0,
 });
 
 pool.on('error', (err) => {
