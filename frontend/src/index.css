@@ -105,3 +105,88 @@ input:focus, select:focus, textarea:focus {
     opacity: 1;
   }
 }
+
+/* Chart Styles */
+.chart-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.chart-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #666;
+}
+
+.chart-loading .spinner {
+  margin-bottom: 10px;
+}
+
+.chart-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #999;
+  font-style: italic;
+}
+
+.chart-tooltip {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.tooltip-value {
+  color: #007bff;
+  font-size: 16px;
+  margin: 2px 0;
+}
+
+.tooltip-count {
+  color: #666;
+  font-size: 12px;
+  margin: 2px 0;
+}
+
+.chart-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 15px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.legend-text {
+  font-size: 14px;
+  color: #333;
+}

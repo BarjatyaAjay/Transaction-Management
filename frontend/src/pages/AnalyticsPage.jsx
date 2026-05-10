@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import analyticsService from '../services/analyticsService';
 import Loading from '../components/Loading';
+import CategoryPieChart from '../components/Charts/CategoryPieChart';
+import MonthlyLineChart from '../components/Charts/MonthlyLineChart';
+import CategoryBarChart from '../components/Charts/CategoryBarChart';
 import './Pages.css';
 
 const AnalyticsPage = () => {
@@ -50,44 +53,17 @@ const AnalyticsPage = () => {
 
         <div className="analytics-section">
           <h3>Monthly Overview</h3>
-          <p className="info-text">Charts will be rendered here in the next phase with Recharts</p>
-          <div className="chart-placeholder">
-            {data.monthly.length > 0 ? (
-              <pre>{JSON.stringify(data.monthly, null, 2)}</pre>
-            ) : (
-              <p>No monthly data available</p>
-            )}
-          </div>
+          <MonthlyLineChart data={data.monthly} loading={loading} />
         </div>
 
         <div className="analytics-section">
           <h3>Category Breakdown</h3>
-          <p className="info-text">Pie chart will be displayed here</p>
-          <div className="chart-placeholder">
-            {data.category.length > 0 ? (
-              <ul>
-                {data.category.map((cat, idx) => (
-                  <li key={idx}>
-                    {cat.name}: ${cat.value} ({cat.count} transactions)
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No category data available</p>
-            )}
-          </div>
+          <CategoryPieChart data={data.category} loading={loading} />
         </div>
 
         <div className="analytics-section">
           <h3>Income vs Expense Trends</h3>
-          <p className="info-text">Line chart will be displayed here</p>
-          <div className="chart-placeholder">
-            {data.trends.length > 0 ? (
-              <pre>{JSON.stringify(data.trends, null, 2)}</pre>
-            ) : (
-              <p>No trend data available</p>
-            )}
-          </div>
+          <CategoryBarChart data={data.trends} loading={loading} />
         </div>
       </div>
     </div>
